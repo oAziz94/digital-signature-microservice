@@ -1,0 +1,3 @@
+2025-02-12 12:24:09 [ERROR]: Error verifying signature: Too few bytes to read ASN.1 value.
+2025-02-12 12:26:59 [ERROR]: Error verifying signature: Too few bytes to read ASN.1 value.
+2025-02-12 12:26:59 [INFO]: ::1 - - [12/Feb/2025:10:26:59 +0000] "POST /verifySignature HTTP/1.1" 500 76 "-" "PostmanRuntime/7.43.0"
