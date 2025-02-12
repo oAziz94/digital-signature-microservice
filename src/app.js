@@ -8,8 +8,8 @@ const verifySignatureRoute = require('./routes/verifySignature');
 
 // Define a rate limiter
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
+    windowMs: process.env.RATE_LIMIT_WINDOW * 60 * 1000, // 15 minutes
+    max: process.env.RATE_LIMIT_MAX, // Limit each IP to 100 requests per windowMs
     message: {
         success: false,
         message: 'Too many requests, please try again later.',
@@ -43,6 +43,8 @@ app.use(helmet()); // Add security headers
 // Routes
 app.use('/healthCheck', require('./routes/healthCheck'));
 app.use('/verifySignature', verifySignatureRoute);
+app.use('/certificateDetails', require('./routes/certificateDetails'));
+
 
 
 // Start the server
