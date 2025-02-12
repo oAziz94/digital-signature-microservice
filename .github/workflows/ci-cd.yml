@@ -11,24 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run tests (Optional: Skip if no tests are ready)
       - name: Run tests
-        run: |
-          echo "No tests yet"
+        run: echo "No tests yet"
 
   deploy-to-heroku:
     name: Deploy to Heroku
@@ -36,16 +31,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install Heroku CLI
       - name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
-      # Step 3: Log in to Heroku
       - name: Log in to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -54,14 +46,11 @@ jobs:
           login ${{ secrets.HEROKU_EMAIL }}
           password ${{ secrets.HEROKU_API_KEY }}" > ~/.netrc
           chmod 600 ~/.netrc
-          heroku container:login
 
-      # Step 4: Add Heroku Buildpack
       - name: Add Heroku Buildpack
         run: |
           heroku buildpacks:add --app digital-signature-microservice heroku/nodejs
 
-      # Step 5: Deploy to Heroku
       - name: Deploy App
         run: |
           git remote add heroku https://git.heroku.com/digital-signature-microservice.git
