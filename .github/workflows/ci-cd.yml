@@ -31,9 +31,9 @@ jobs:
           echo "No tests yet"
 
   deploy-to-heroku:
-  name: Deploy to Heroku
-  needs: build-and-test
-  runs-on: ubuntu-latest
+    name: Deploy to Heroku
+    needs: build-and-test
+    runs-on: ubuntu-latest
 
   steps:
     # Step 1: Checkout code
