@@ -1,5 +1,9 @@
 name: CI/CD Workflow
 
+env:
+  ACTIONS_STEP_DEBUG: true
+
+
 on:
   push:
     branches:
