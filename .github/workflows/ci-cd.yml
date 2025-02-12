@@ -36,21 +36,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Install Heroku CLI
       - name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
+      # Step 3: Log in to Heroku
       - name: Log in to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
           echo "$HEROKU_API_KEY" | heroku auth:token > ~/.netrc
           chmod 600 ~/.netrc
-
+  
+      # Step 4: Add Buildpack and Deploy
       - name: Deploy App
         run: |
-          heroku buildpacks:add heroku/nodejs
+          heroku buildpacks:add --app digital-signature-microservice heroku/nodejs
           git push heroku main
