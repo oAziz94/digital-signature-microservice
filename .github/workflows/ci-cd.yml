@@ -52,6 +52,7 @@ jobs:
           echo "machine api.heroku.com
           login ${{ secrets.HEROKU_EMAIL }}
           password ${{ secrets.HEROKU_API_KEY }}" > ~/.netrc
+          chmod 600 ~/.netrc
 
       # Step 3: Deploy to Heroku
       - name: Deploy to Heroku
