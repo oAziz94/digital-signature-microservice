@@ -29,33 +29,28 @@ jobs:
       - name: Run tests
         run: |
           echo "No tests yet"
-
+          
   deploy-to-heroku:
     name: Deploy to Heroku
     needs: build-and-test
     runs-on: ubuntu-latest
 
-  steps:
-    # Step 1: Checkout code
-    - name: Checkout code
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Step 2: Install Heroku CLI
-    - name: Install Heroku CLI
-      run: |
-        curl https://cli-assets.heroku.com/install.sh | sh
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
 
-    # Step 3: Log in to Heroku
-    - name: Log in to Heroku
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: |
-        echo "$HEROKU_API_KEY" | heroku auth:token > ~/.netrc
-        chmod 600 ~/.netrc
+      - name: Log in to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo "$HEROKU_API_KEY" | heroku auth:token > ~/.netrc
+          chmod 600 ~/.netrc
 
-    # Step 4: Deploy using Heroku CLI
-    - name: Deploy App
-      run: |
-        heroku container:login
-        heroku git:remote -a digital-signature-microservice
-        git push heroku main
+      - name: Deploy App
+        run: |
+          heroku buildpacks:add heroku/nodejs
+          git push heroku main
